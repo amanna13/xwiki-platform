@@ -70,6 +70,18 @@ public class DefaultGroupingEventManager implements GroupingEventManager
     public List<CompositeEvent> getCompositeEvents(List<Event> events, String userId, String target) throws
         NotificationException
     {
+        return getStrategy(userId, target).group(events);
+    }
+
+    @Override
+    public void augmentCompositeEvents(List<CompositeEvent> compositeEvents, List<Event> newEvents, String userId,
+        String target) throws NotificationException
+    {
+        getStrategy(userId, target).group(compositeEvents, newEvents);
+    }
+
+    private GroupingEventStrategy getStrategy(String userId, String target) throws NotificationException
+    {
         GroupingEventStrategy groupingEventStrategy = this.defaultGroupingEventStrategy;
 
         // FIXME: We should have a way to fallback on wiki preference
@@ -93,6 +105,6 @@ public class DefaultGroupingEventManager implements GroupingEventManager
                     strategyHint);
             }
         }
-        return groupingEventStrategy.group(events);
+        return groupingEventStrategy;
     }
 }

@@ -44,4 +44,14 @@ public interface GroupingEventStrategy
      * @throws NotificationException in case of problem when performing the grouping
      */
     List<CompositeEvent> group(List<Event> eventList) throws NotificationException;
+
+    /**
+     * Groups the new events to add them in the provided list of composite events.
+     * The method doesn't return anything but update the provided list of composite events.
+     *
+     * @param compositeEvents a list of already existing composite events (can be empty)
+     * @param newEvents the new events to group
+     * @throws NotificationException in case of problem when performing the grouping
+     */
+    void group(List<CompositeEvent> compositeEvents, List<Event> newEvents) throws NotificationException;
 }

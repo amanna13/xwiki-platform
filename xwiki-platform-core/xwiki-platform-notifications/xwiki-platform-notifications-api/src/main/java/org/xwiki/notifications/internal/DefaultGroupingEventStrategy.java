@@ -164,4 +164,12 @@ public class DefaultGroupingEventStrategy implements GroupingEventStrategy
 
         return result;
     }
+
+    @Override
+    public void group(List<CompositeEvent> compositeEvents, List<Event> newEvents) throws NotificationException
+    {
+        for (Event newEvent : newEvents) {
+            recordEvent(compositeEvents, newEvent);
+        }
+    }
 }
